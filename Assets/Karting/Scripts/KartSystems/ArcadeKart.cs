@@ -444,31 +444,31 @@ namespace KartGame.KartSystems
             // apply inputs to forward/backward
             float turningPower = IsDrifting ? m_DriftTurningPower : turnInput * m_FinalStats.Steer;
 
+
             Quaternion turnAngle = Quaternion.AngleAxis(turningPower, transform.up);
             Vector3 fwd = turnAngle * transform.forward;
             Vector3 movement = fwd * accelInput * finalAcceleration * ((m_HasCollision || GroundPercent > 0.0f) ? 1.0f : 0.0f);
 
-            Vector3 rotateDirection = new Vector3(turnInput, 0, 0);
+            //Vector3 rotateDirection = new Vector3(turnInput, 0, 0);
 
-            if (rotateDirection != Vector3.zero)
-            {
-                if (turnInput < 0)
-                {
-                    Quaternion toRotation = Quaternion.LookRotation(rotateDirection, ((Vector3.left) / 2));
-                }
-                else
-                {
-                    Quaternion toRotation = Quaternion.LookRotation(rotateDirection, ((Vector3.right) / 2));
-                }
+            //if (rotateDirection != Vector3.zero)
+            //{
+            //    if (turnInput < 0)
+            //    {
+            //        Quaternion toRotation = Quaternion.LookRotation(rotateDirection, ((Vector3.left) / 2));
+            //    }
+            //    else
+            //    {
+            //        Quaternion toRotation = Quaternion.LookRotation(rotateDirection, ((Vector3.right) / 2));
+            //    }
 
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
-            }
+            //    transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+            //}
 
-            // forward movement
-            bool wasOverMaxSpeed = currentSpeed >= maxSpeed;
-
+            //forward movement
+              bool wasOverMaxSpeed = currentSpeed >= maxSpeed;
             // if over max speed, cannot accelerate faster.
-            if (wasOverMaxSpeed && !isBraking) 
+            if (wasOverMaxSpeed && !isBraking)
                 movement *= 0.0f;
 
             Vector3 newVelocity = Rigidbody.velocity + movement * Time.fixedDeltaTime;
